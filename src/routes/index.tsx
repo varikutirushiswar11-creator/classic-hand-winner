@@ -192,8 +192,8 @@ function GamePage() {
       {outcome && (
         <p className="verdict" key={`v-${total}`}>
           {OUTCOME_COPY[outcome].text(
-            playerMove ? MOVES[playerMove].label : "",
-            cpuMove ? MOVES[cpuMove].label : "",
+            playerMove ? MOVES[playerMove]!.label : "",
+            cpuMove ? MOVES[cpuMove]!.label : "",
           )}
         </p>
       )}
@@ -206,9 +206,9 @@ function GamePage() {
             disabled={revealing}
             onClick={() => play(move)}
           >
-            <span className="move-btn__emoji">{MOVES[move].emoji}</span>
-            <span className="move-btn__label">{MOVES[move].label}</span>
-            <span className="move-btn__key">{move[0].toUpperCase()}</span>
+            <span className="move-btn__emoji">{MOVES[move]!.emoji}</span>
+            <span className="move-btn__label">{MOVES[move]!.label}</span>
+            <span className="move-btn__key">{move[0]!.toUpperCase()}</span>
           </button>
         ))}
       </section>
