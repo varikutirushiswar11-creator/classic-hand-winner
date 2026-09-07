@@ -52,6 +52,10 @@ const MOVES: Record<
 
 const MOVE_LIST = Object.keys(MOVES) as Move[];
 
+function randomMove(): Move {
+  return MOVE_LIST[Math.floor(Math.random() * MOVE_LIST.length)]!;
+}
+
 function decide(player: Move, cpu: Move): Outcome {
   if (player === cpu) return "draw";
   return MOVES[player].beats === cpu ? "win" : "lose";
@@ -82,11 +86,11 @@ function GamePage() {
     // suspenseful CPU "shake" before revealing
     let ticks = 0;
     const interval = setInterval(() => {
-      setCpuMove(MOVE_LIST[Math.floor(Math.random() * MOVE_LIST.length)]);
+      setCpuMove(randomMove());
       ticks += 1;
       if (ticks >= 9) {
         clearInterval(interval);
-        const cpu = MOVE_LIST[Math.floor(Math.random() * MOVE_LIST.length)];
+        const cpu = randomMove();
         const result = decide(move, cpu);
         setCpuMove(cpu);
         setOutcome(result);
@@ -263,10 +267,10 @@ function PlayerPanel({
           .filter(Boolean)
           .join(" ")}
       >
-        <span className="panel__emoji">{move ? MOVES[move].emoji : "❔"}</span>
+        <span className="panel__emoji">{move ? MOVES[move]!.emoji : "❔"}</span>
       </div>
       <p className="panel__name">
-        {move ? MOVES[move].label : idle}
+        {move ? MOVES[move]!.label : idle}
       </p>
     </div>
   );
